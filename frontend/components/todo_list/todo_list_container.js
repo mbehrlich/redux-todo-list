@@ -10,8 +10,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   requestTodos: () => dispatch(requestTodos()),
   createTodo: (todo) => dispatch(createTodo(todo)),
-  toggleTodo: (todo) => dispatch(toggleTodo(todo)),
-  destroyTodo: (todo) => dispatch(destroyTodo(todo))
+  toggleTodo: (todo) => dispatch(toggleTodo(todo))
 });
 
 export default connect(

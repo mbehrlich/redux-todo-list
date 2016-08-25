@@ -1,11 +1,13 @@
 import React from 'react';
 import { merge } from 'lodash';
+import TodoDetailViewContainer from './todo_detail_view_container';
 
 class TodoListItem extends React.Component {
   constructor(props) {
     super(props);
     this.doneToggle = this.doneToggle.bind(this);
-    this.remove = this.remove.bind(this);
+    this.toggleDetail = this.toggleDetail.bind(this);
+    this.state = {detail: false}
   }
 
   doneToggle(event) {
@@ -17,18 +19,21 @@ class TodoListItem extends React.Component {
     this.props.toggleTodo(updatedItem);
   }
 
-  remove(event) {
-    event.preventDefault();
-    this.props.destroyTodo(this.props.item);
+  toggleDetail(event){
+    this.state.detail ? this.setState({detail: false}) : this.setState({detail: true});
   }
 
   render(){
+    let detail;
+    if (this.state.detail) {
+      detail = (<TodoDetailViewContainer todo={this.props.item}/>);
+    }
     return (
       <li>
         <div>
-          <h4>{this.props.item.title}</h4>
+          <h4 onClick={this.toggleDetail}>{this.props.item.title}</h4>
+          {detail}
           <button onClick={this.doneToggle}>{this.props.item.done ? "undo" : "done"}</button>
-          <button onClick={this.remove}>Remove</button>
         </div>
       </li>
     );
